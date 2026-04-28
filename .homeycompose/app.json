@@ -50,5 +50,9 @@
   "author": {
     "name": "Abe Haverkamp",
     "email": "abe.haverkamp@gmail.com"
+  },
+  "source": "https://github.com/Doekse/arcade-homey",
+  "bugs": {
+    "url": "https://github.com/Doekse/arcade-homey/issues"
   }
 }
