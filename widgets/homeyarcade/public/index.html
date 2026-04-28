@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>HomeyArcade</title>
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css" />
+    <style type="text/css">
+      /* Percent-based layers keep hit zones aligned with scaled handheld art. */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        font-family: system-ui, -apple-system, sans-serif;
+        min-height: 100%;
+      }
+      .handheld {
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        aspect-ratio: 3 / 4;
+        margin: 0 auto;
+        background: transparent;
+      }
+      /* Screen coordinates match the shell cutout from the shared reference canvas. */
+      .screen {
+        position: absolute;
+        left: 6.019%;
+        top: 5.556%;
+        width: 87.963%;
+        height: 49.444%;
+        background: #000;
+        overflow: hidden;
+        z-index: 0;
+      }
+      /* js-dos v8 kiosk chrome we suppress; our overlay replaces it. */
+      .screen [class*="sidebar"],
+      .screen [class*="side-bar"],
+      .screen [class*="soft-keyboard"],
+      .screen [class*="keyboard-show"],
+      .screen [class*="virtual-keyboard"] {
+        display: none !important;
+      }
+      .handheld-shell {
+        position: absolute;
+        inset: 0;
+        background: url('art/arcadeboy.png') center/contain no-repeat;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .hit {
+        position: absolute;
+        left: var(--l);
+        top: var(--t);
+        width: var(--w);
+        height: var(--h);
+        appearance: none;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        color: transparent;
+        font: 700 10px/1 system-ui, -apple-system, sans-serif;
+        letter-spacing: 1px;
+        text-align: center;
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        z-index: 2;
+      }
+      /* Overlay controls stay clickable without intercepting gameplay targets. */
+      .chrome-toggle {
+        position: absolute;
+        bottom: 2%;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2rem;
+        min-height: 2rem;
+        padding: 0.25rem 0.35rem;
+        border: 0;
+        border-radius: 0.45rem;
+        font-size: 1rem;
+        line-height: 1;
+        cursor: pointer;
+        color: #fff;
+        background: rgba(20, 20, 22, 0.42);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        opacity: 0.72;
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      .chrome-toggle:hover,
+      .chrome-toggle:focus-visible {
+        opacity: 0.92;
+        background: rgba(20, 20, 22, 0.55);
+      }
+      .chrome-toggle:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.45);
+        outline-offset: 2px;
+      }
+      .mute-toggle {
+        left: 2.5%;
+      }
+      .keyboard-toggle {
+        left: 12.5%;
+      }
+      .keyboard-capture {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body class="homey-widget-full">
+    <div class="handheld">
+      <div id="dos" class="screen"></div>
+      <div class="handheld-shell" role="img" aria-label="Handheld console"></div>
+
+      <!-- Hit target percentages are anchored to the shared handheld reference canvas. -->
+
+      <button type="button" class="hit"
+        style="--l:18.981%; --t:59.028%; --w:12.963%; --h:9.722%"
+        data-control="up" aria-label="Up">Up</button>
+      <button type="button" class="hit"
+        style="--l:6.019%; --t:68.75%; --w:12.963%; --h:9.722%"
+        data-control="left" aria-label="Left">Left</button>
+      <button type="button" class="hit"
+        style="--l:31.944%; --t:68.75%; --w:12.963%; --h:9.722%"
+        data-control="right" aria-label="Right">Right</button>
+      <button type="button" class="hit"
+        style="--l:18.981%; --t:78.472%; --w:12.963%; --h:9.722%"
+        data-control="down" aria-label="Down">Down</button>
+
+      <button type="button" class="hit"
+        style="--l:63.889%; --t:62.5%; --w:12.963%; --h:9.722%"
+        data-control="y" aria-label="Y">Y</button>
+      <button type="button" class="hit"
+        style="--l:80.556%; --t:62.5%; --w:12.963%; --h:9.722%"
+        data-control="x"
+        aria-label="X (sticky)">X</button>
+      <button type="button" class="hit"
+        style="--l:63.889%; --t:75%; --w:12.963%; --h:9.722%"
+        data-control="b" aria-label="B">B</button>
+      <button type="button" class="hit"
+        style="--l:80.556%; --t:75%; --w:12.963%; --h:9.722%"
+        data-control="a" aria-label="A">A</button>
+
+      <!-- MENU/SELECT/START mirror shell spacing so text labels stay over painted buttons. -->
+      <button type="button" class="hit"
+        style="--l:40.74%; --t:59.028%; --w:18.52%; --h:4.17%"
+        data-control="menu" aria-label="Menu">MENU</button>
+      <button type="button" class="hit"
+        style="--l:29.63%; --t:90.28%; --w:18.52%; --h:4.17%"
+        data-control="select" aria-label="Select">SELECT</button>
+      <button type="button" class="hit"
+        style="--l:51.85%; --t:90.28%; --w:18.52%; --h:4.17%"
+        data-control="start" aria-label="Start">START</button>
+
+      <button type="button" class="chrome-toggle keyboard-toggle" id="keyboard-toggle" aria-label="Open keyboard">⌨</button>
+      <button type="button" class="chrome-toggle mute-toggle" id="mute-toggle" aria-pressed="true"
+        aria-label="Unmute game audio">🔇</button>
+      <input id="keyboard-capture" class="keyboard-capture" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true" />
+    </div>
+    <script type="text/javascript" src="controls.js"></script>
+    <script type="text/javascript" src="https://v8.js-dos.com/latest/js-dos.js"></script>
+    <script type="text/javascript">
+      /**
+       * Handheld control wiring: turns DOM hit targets into DOSBox key events via the js-dos v8
+       * CommandInterface. Per-game slot→scancode maps live in `controls.js` (`HomeyArcadeControls`).
+       * We keep our own held-key bookkeeping so visibility loss can release every key in one sweep,
+       * otherwise the game keeps walking forward on a dashboard reshuffle.
+       */
+      (function () {
+        'use strict';
+
+        var ctrls = window.HomeyArcadeControls;
+        if (!ctrls) {
+          throw new Error('Missing HomeyArcadeControls: load controls.js before this script.');
+        }
+
+        /** @type {import('https://v8.js-dos.com/latest/js-dos').CommandInterface | null} */
+        var ci = null;
+        /** @type {import('https://v8.js-dos.com/latest/js-dos').DosProps | null} */
+        var dosProps = null;
+        /** @type {string | null} js-dos bundle URL for the game that was booted; used to detect Game setting changes. */
+        var loadedGameUrl = null;
+        /** @type {Set<number>} */
+        var held = new Set();
+        /** @type {Set<number>} */
+        var sticky = new Set();
+        /** When true, js-dos output volume is zero until the player unmutes. */
+        var audioMuted = true;
+
+        /** @type {HTMLInputElement | null} Hidden input used to summon mobile virtual keyboards. */
+        var keyboardCaptureInput = null;
+
+        /**
+         * @param {number} code js-dos KBD_* scancode (see HTML comment block).
+         * @param {boolean} pressed
+         */
+        function sendKey(code, pressed) {
+          if (!ci) return;
+          if (pressed) {
+            if (held.has(code)) return;
+            held.add(code);
+            ci.sendKeyEvent(code, true);
+          } else {
+            if (!held.has(code)) return;
+            held.delete(code);
+            ci.sendKeyEvent(code, false);
+          }
+        }
+
+        /**
+         * @param {number} code
+         * @param {number} [ms=80]
+         */
+        function tapKey(code, ms) {
+          sendKey(code, true);
+          setTimeout(function () { sendKey(code, false); }, ms || 80);
+        }
+
+        /** Dismisses the mobile virtual keyboard so gameplay taps do not keep reopening it. */
+        function dismissVirtualKeyboard() {
+          if (!(keyboardCaptureInput instanceof HTMLInputElement)) return;
+          keyboardCaptureInput.value = '';
+          if (document.activeElement === keyboardCaptureInput) {
+            keyboardCaptureInput.blur();
+          }
+        }
+
+        /**
+         * One left-button press at the DOS cursor (DOSBox expects normalized coords in [0,1]).
+         * DOOM uses this for menu picks when mouse is enabled in-game.
+         */
+        function clickMouseLeft() {
+          if (!ci) return;
+          try {
+            ci.sendMouseMotion(0.5, 0.5);
+            ci.sendMouseSync();
+            ci.sendMouseButton(0, true);
+            ci.sendMouseSync();
+            ci.sendMouseButton(0, false);
+            ci.sendMouseSync();
+          } catch (_e) {
+            
+          }
+        }
+
+        /** Releases every held key and clears latch state; used on visibility/focus loss. */
+        function releaseAll() {
+          held.forEach(function (code) {
+            try { ci && ci.sendKeyEvent(code, false); } catch (_e) {}
+          });
+          held.clear();
+          sticky.clear();
+          document.querySelectorAll('[data-mode="tap-or-hold"]').forEach(function (b) {
+            /** @type {any} */
+            var root = b;
+            if (root._thTimer) {
+              clearTimeout(root._thTimer);
+              root._thTimer = null;
+            }
+            if (root._thHoldStarted) {
+              var hc = parseInt(b.getAttribute('data-key') || '0', 10);
+              if (hc) sendKey(hc, false);
+              root._thHoldStarted = false;
+            }
+            b.removeAttribute('data-active');
+          });
+          document.querySelectorAll('[data-active="true"]').forEach(function (el) {
+            el.removeAttribute('data-active');
+          });
+        }
+
+        /**
+         * Short tap → left mouse click (menus); hold past threshold → KBD key (fire).
+         *
+         * @param {HTMLButtonElement} btn
+         */
+        function wireTapOrHold(btn) {
+          var holdCode = parseInt(btn.dataset.key, 10);
+          var useMouseTap = btn.dataset.tapMouse === '1' || btn.dataset.tapMouse === 'true';
+          var tapKeyCode = parseInt(btn.dataset.tapKey || '0', 10);
+          var threshold = parseInt(btn.dataset.tapHoldMs || '180', 10);
+          if (!holdCode) return;
+
+          btn.addEventListener('pointerdown', function (e) {
+            e.preventDefault();
+            dismissVirtualKeyboard();
+            try { btn.setPointerCapture(e.pointerId); } catch (_err) {}
+            /** @type {any} */
+            var root = btn;
+            root._thHoldStarted = false;
+            root._thTimer = setTimeout(function () {
+              root._thTimer = null;
+              root._thHoldStarted = true;
+              sendKey(holdCode, true);
+              btn.dataset.active = 'true';
+            }, threshold);
+          });
+
+          var finish = function () {
+            /** @type {any} */
+            var root = btn;
+            if (root._thTimer) {
+              clearTimeout(root._thTimer);
+              root._thTimer = null;
+            }
+            if (root._thHoldStarted) {
+              sendKey(holdCode, false);
+              root._thHoldStarted = false;
+              btn.removeAttribute('data-active');
+            } else if (useMouseTap) {
+              clickMouseLeft();
+            } else if (tapKeyCode) {
+              tapKey(tapKeyCode, 80);
+            }
+          };
+
+          btn.addEventListener('pointerup', finish);
+          btn.addEventListener('pointercancel', finish);
+          btn.addEventListener('lostpointercapture', finish);
+        }
+
+        /**
+         * @param {HTMLButtonElement} btn
+         */
+        function wireButton(btn) {
+          var mode = btn.dataset.mode || 'hold';
+          if (mode === 'tap-or-hold') {
+            wireTapOrHold(btn);
+            return;
+          }
+          var code = parseInt(btn.dataset.key, 10);
+          if (!code) return;
+
+          btn.addEventListener('pointerdown', function (e) {
+            e.preventDefault();
+            dismissVirtualKeyboard();
+            try { btn.setPointerCapture(e.pointerId); } catch (_err) {}
+            if (mode === 'tap') {
+              btn.dataset.active = 'true';
+              tapKey(code, 80);
+              setTimeout(function () { btn.removeAttribute('data-active'); }, 120);
+              return;
+            }
+            if (mode === 'sticky') {
+              if (sticky.has(code)) {
+                sticky.delete(code);
+                sendKey(code, false);
+                btn.removeAttribute('data-active');
+              } else {
+                sticky.add(code);
+                sendKey(code, true);
+                btn.dataset.active = 'true';
+              }
+              return;
+            }
+            sendKey(code, true);
+            btn.dataset.active = 'true';
+          });
+
+          var release = function () {
+            if (mode !== 'hold') return;
+            sendKey(code, false);
+            btn.removeAttribute('data-active');
+          };
+          btn.addEventListener('pointerup', release);
+          btn.addEventListener('pointercancel', release);
+          btn.addEventListener('lostpointercapture', release);
+        }
+
+        function wireControls() {
+          document.querySelectorAll('[data-key]').forEach(function (el) {
+            wireButton(/** @type {HTMLButtonElement} */ (el));
+          });
+        }
+
+        /**
+         * Syncs the mute control visuals with {@link audioMuted}; call after boot or toggles.
+         *
+         * @param {HTMLButtonElement} btn
+         */
+        function syncMuteToggleUi(btn) {
+          btn.textContent = audioMuted ? '🔇' : '🔊';
+          btn.setAttribute('aria-pressed', audioMuted ? 'true' : 'false');
+          btn.setAttribute('aria-label', audioMuted ? 'Unmute game audio' : 'Mute game audio');
+        }
+
+        /**
+         * Applies mute state to js-dos and the toggle button; no-op if the player is not ready.
+         *
+         * @param {HTMLButtonElement} btn
+         */
+        function applyAudioMuteUi(btn) {
+          if (dosProps && typeof dosProps.setVolume === 'function') {
+            dosProps.setVolume(audioMuted ? 0 : 1);
+          }
+          syncMuteToggleUi(btn);
+        }
+
+        /**
+         * Wires the mute toggle once {@link dosProps} exists.
+         *
+         * @param {HTMLButtonElement} btn
+         */
+        function wireMuteToggle(btn) {
+          btn.addEventListener('click', function () {
+            audioMuted = !audioMuted;
+            applyAudioMuteUi(btn);
+          });
+          applyAudioMuteUi(btn);
+        }
+
+        /**
+         * Maps keyboard characters to js-dos key constants for menu text shortcuts on mobile.
+         *
+         * @param {string} key
+         * @returns {number}
+         */
+        function mapKeyToDosCode(key) {
+          if (!key) return 0;
+          if (key.length === 1) {
+            var c = key.toUpperCase();
+            var cp = c.charCodeAt(0);
+            if (cp >= 65 && cp <= 90) return cp;
+            if (cp >= 48 && cp <= 57) return cp;
+            if (cp === 32) return 32;
+          }
+          if (key === 'Enter') return 257;
+          if (key === 'Tab') return 258;
+          if (key === 'Escape') return 256;
+          if (key === 'ArrowUp') return 265;
+          if (key === 'ArrowDown') return 264;
+          if (key === 'ArrowLeft') return 263;
+          if (key === 'ArrowRight') return 262;
+          return 0;
+        }
+
+        /**
+         * Wires a keyboard launcher for touch devices by focusing a hidden input on demand.
+         *
+         * @param {HTMLButtonElement} btn
+         * @param {HTMLInputElement} input
+         */
+        function wireKeyboardToggle(btn, input) {
+          /**
+           * Mobile virtual keyboards often emit text through `input` events without reliable
+           * per-key `keydown` data, so we translate buffered characters here as a fallback.
+           *
+           * @param {string} text
+           */
+          var flushTypedText = function (text) {
+            if (!text) return;
+            for (var i = 0; i < text.length; i += 1) {
+              var code = mapKeyToDosCode(text.charAt(i));
+              if (!code) continue;
+              tapKey(code, 90);
+            }
+          };
+          btn.addEventListener('click', function () {
+            input.value = '';
+            input.focus();
+          });
+          input.addEventListener('keydown', function (event) {
+            var code = mapKeyToDosCode(event.key);
+            if (!code) return;
+            event.preventDefault();
+            tapKey(code, 90);
+            input.value = '';
+          });
+          input.addEventListener('input', function () {
+            flushTypedText(input.value);
+            input.value = '';
+          });
+          input.addEventListener('change', function () {
+            flushTypedText(input.value);
+            input.value = '';
+          });
+        }
+
+        /**
+         * Writes the emulated filesystem diff to IndexedDB so in-game saves survive reloads.
+         * Kiosk mode hides js-dos UI; without this, only RAM holds new save files until flush.
+         */
+        function persistDosFs() {
+          if (!dosProps || typeof dosProps.save !== 'function') return;
+          dosProps.save().catch(function () {});
+        }
+
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden') {
+            releaseAll();
+            persistDosFs();
+          }
+        });
+        window.addEventListener('pagehide', function () {
+          releaseAll();
+          persistDosFs();
+        });
+        window.addEventListener('blur', releaseAll);
+
+        /**
+         * Keeps the Homey iframe tall enough for the handheld shell. The static height in
+         * widget.compose.json is just the initial shell; once art/screen have laid out we
+         * tell Homey the measured pixel height, and a ResizeObserver re-fits on font or
+         * dashboard-width changes so the screen frame never gets clipped.
+         *
+         * @param {import('../../../node_modules/@types/homey/lib/HomeyWidget')} Homey
+         * @param {HTMLElement} handheldRoot
+         */
+        function trackHandheldHeight(Homey, handheldRoot) {
+          var applied = 0;
+          var pending = null;
+          var apply = function () {
+            pending = null;
+            var next = Math.ceil(handheldRoot.getBoundingClientRect().height);
+            if (!next || next === applied) return;
+            applied = next;
+            try { Homey.setHeight(next); } catch (_e) { /* Homey re-renders handle retries */ }
+          };
+          var schedule = function () {
+            if (pending != null) return;
+            pending = requestAnimationFrame(apply);
+          };
+          apply();
+          if (typeof ResizeObserver === 'function') {
+            new ResizeObserver(schedule).observe(handheldRoot);
+          }
+          window.addEventListener('resize', schedule);
+          window.addEventListener('load', schedule);
+        }
+
+        /**
+         * Applies per-slot control attributes from `HomeyArcadeControls.GAME_CONTROL_CONFIG` for the active game.
+         *
+         * @param {string} gameId
+         */
+        function applyControlConfig(gameId) {
+          var configs = ctrls.GAME_CONTROL_CONFIG;
+          var table = configs[gameId] || configs[ctrls.DEFAULT_GAME_ID];
+          document.querySelectorAll('[data-control]').forEach(function (el) {
+            var slot = el.getAttribute('data-control');
+            if (!slot) return;
+            var slotConfig = table[slot];
+            if (!slotConfig || typeof slotConfig.key !== 'number' || slotConfig.key <= 0) return;
+
+            el.setAttribute('data-key', String(slotConfig.key));
+            el.setAttribute('data-mode', slotConfig.mode || 'hold');
+
+            if (slotConfig.tapMouse === true) {
+              el.setAttribute('data-tap-mouse', 'true');
+            } else {
+              el.removeAttribute('data-tap-mouse');
+            }
+
+            if (typeof slotConfig.tapKey === 'number' && slotConfig.tapKey > 0) {
+              el.setAttribute('data-tap-key', String(slotConfig.tapKey));
+            } else {
+              el.removeAttribute('data-tap-key');
+            }
+
+            if (typeof slotConfig.tapHoldMs === 'number' && slotConfig.tapHoldMs > 0) {
+              el.setAttribute('data-tap-hold-ms', String(slotConfig.tapHoldMs));
+            } else {
+              el.removeAttribute('data-tap-hold-ms');
+            }
+          });
+        }
+
+        /**
+         * Maps {@link settings}.console to a committed shell under `public/art/`.
+         * Legacy `arcadeboy_color` (removed single PNG) resolves to the blue variant.
+         *
+         * @param {Record<string, unknown>} settings
+         * @returns {string} Relative art path for the Console setting.
+         */
+        function resolveConsoleArtPath(settings) {
+          var c = String(settings.console || 'arcadeboy');
+          var byColor = {
+            arcadeboy_color: 'art/arcadeboy_color_blue.png',
+            arcadeboy_color_blue: 'art/arcadeboy_color_blue.png',
+            arcadeboy_color_green: 'art/arcadeboy_color_green.png',
+            arcadeboy_color_purple: 'art/arcadeboy_color_purple.png',
+            arcadeboy_color_translucent: 'art/arcadeboy_color_translucent.png',
+            arcadeboy_color_yellow: 'art/arcadeboy_color_yellow.png',
+          };
+          if (Object.prototype.hasOwnProperty.call(byColor, c)) return byColor[c];
+          if (c === 'super_arcadeboy') return 'art/super_arcadeboy.png';
+          if (c === 'arcadestation') return 'art/arcadestation.png';
+          return 'art/arcadeboy.png';
+        }
+
+        /**
+         * Points the overlay at the shell asset chosen in widget settings.
+         *
+         * @param {import('../../../node_modules/@types/homey/lib/HomeyWidget')} Homey
+         */
+        function applyConsoleArtFromSettings(Homey) {
+          var rel = resolveConsoleArtPath(Homey.getSettings());
+          var overlay = document.querySelector('.handheld-shell');
+          if (overlay instanceof HTMLElement) {
+            overlay.style.backgroundImage = "url('" + rel + "')";
+            overlay.setAttribute(
+              'aria-label',
+              (function () {
+                if (rel.indexOf('super_arcadeboy') !== -1) return 'Super Arcade Boy handheld';
+                if (rel.indexOf('arcadestation') !== -1) return 'ArcadeStation handheld';
+                var m = /arcadeboy_color_(\w+)\.png$/.exec(rel);
+                if (m) {
+                  var shade = m[1].charAt(0).toUpperCase() + m[1].slice(1);
+                  return 'Arcade Boy Color handheld (' + shade + ')';
+                }
+                if (rel.indexOf('color') !== -1) return 'Arcade Boy Color handheld';
+                return 'Arcade Boy handheld';
+              })(),
+            );
+          }
+        }
+
+        /**
+         * Re-applies shell art when the user changes widget settings in the dashboard editor.
+         *
+         * @param {import('../../../node_modules/@types/homey/lib/HomeyWidget')} Homey
+         */
+        function attachConsoleSettingListener(Homey) {
+          if (typeof Homey.on !== 'function') return;
+          var schedule = function () {
+            requestAnimationFrame(function () {
+              applyConsoleArtFromSettings(Homey);
+            });
+          };
+          Homey.on('settings.set', schedule);
+          Homey.on('settings.unset', schedule);
+        }
+
+        /**
+         * Reloads the widget when the Game dropdown changes so js-dos picks up a different bundle URL.
+         *
+         * @param {import('../../../node_modules/@types/homey/lib/HomeyWidget')} Homey
+         */
+        function attachGameSettingListener(Homey) {
+          if (typeof Homey.on !== 'function') return;
+          var check = function () {
+            var next = ctrls.resolveGameBundleUrl(Homey.getSettings());
+            if (loadedGameUrl !== null && next !== loadedGameUrl) {
+              window.location.reload();
+            }
+          };
+          Homey.on('settings.set', check);
+          Homey.on('settings.unset', check);
+        }
+
+        function onHomeyReady(Homey) {
+          Homey.ready();
+          applyConsoleArtFromSettings(Homey);
+          attachConsoleSettingListener(Homey);
+          loadedGameUrl = ctrls.resolveGameBundleUrl(Homey.getSettings());
+          attachGameSettingListener(Homey);
+          applyControlConfig(ctrls.resolveGameId(Homey.getSettings()));
+          wireControls();
+          var handheldRoot = document.querySelector('.handheld');
+          if (handheldRoot instanceof HTMLElement) {
+            trackHandheldHeight(Homey, handheldRoot);
+          }
+          bootDos(Homey);
+        }
+
+        /**
+         * Boots js-dos with widget-specific defaults so handheld controls map immediately.
+         *
+         * @param {import('../../../node_modules/@types/homey/lib/HomeyWidget')} Homey
+         */
+        function bootDos(Homey) {
+          dosProps = Dos(document.getElementById('dos'), {
+            url: ctrls.resolveGameBundleUrl(Homey.getSettings()),
+            kiosk: true,
+            autoSave: true,
+            noCloud: true,
+            mouseCapture: false,
+            imageRendering: 'pixelated',
+            renderAspect: 'Fit',
+            workerThread: true,
+            autoStart: true,
+            countDownStart: 0,
+            volume: 0,
+            onEvent: function (event, payload) {
+              if (event === 'ci-ready' && payload) {
+                ci = payload;
+                queueMicrotask(function () {
+                  if (dosProps && typeof dosProps.setVolume === 'function') {
+                    dosProps.setVolume(audioMuted ? 0 : 1);
+                  }
+                });
+              }
+            },
+          });
+          if (dosProps && typeof dosProps.setVolume === 'function') {
+            dosProps.setVolume(audioMuted ? 0 : 1);
+          }
+          var muteBtn = document.getElementById('mute-toggle');
+          if (muteBtn instanceof HTMLButtonElement) {
+            wireMuteToggle(muteBtn);
+          }
+          var keyboardBtn = document.getElementById('keyboard-toggle');
+          var keyboardCapture = document.getElementById('keyboard-capture');
+          if (keyboardBtn instanceof HTMLButtonElement && keyboardCapture instanceof HTMLInputElement) {
+            keyboardCaptureInput = keyboardCapture;
+            wireKeyboardToggle(keyboardBtn, keyboardCapture);
+          }
+        }
+
+        window.onHomeyReady = onHomeyReady;
+      }());
+    </script>
+  </body>
+</html>

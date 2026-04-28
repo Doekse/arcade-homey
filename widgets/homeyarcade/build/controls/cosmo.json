@@ -1,0 +1,61 @@
+{
+  "id": "cosmo",
+  "bundle": "game/cosmo.jsdos",
+  "controls": {
+    "up": {
+      "key": "KBD_up",
+      "action": "Look up / climb",
+      "mode": "hold"
+    },
+    "down": {
+      "key": "KBD_down",
+      "action": "Look down",
+      "mode": "hold"
+    },
+    "left": {
+      "key": "KBD_left",
+      "action": "Move left",
+      "mode": "hold"
+    },
+    "right": {
+      "key": "KBD_right",
+      "action": "Move right",
+      "mode": "hold"
+    },
+    "a": {
+      "key": "KBD_leftctrl",
+      "action": "Jump",
+      "mode": "hold"
+    },
+    "b": {
+      "key": "KBD_space",
+      "action": "Secondary action",
+      "mode": "hold"
+    },
+    "x": {
+      "key": "KBD_leftshift",
+      "action": "Modifier (sticky)",
+      "mode": "sticky"
+    },
+    "y": {
+      "key": "KBD_leftalt",
+      "action": "Throw bomb",
+      "mode": "hold"
+    },
+    "menu": {
+      "key": "KBD_esc",
+      "action": "Menu",
+      "mode": "tap"
+    },
+    "select": {
+      "key": "KBD_tab",
+      "action": "Status",
+      "mode": "tap"
+    },
+    "start": {
+      "key": "KBD_enter",
+      "action": "Confirm",
+      "mode": "tap"
+    }
+  }
+}

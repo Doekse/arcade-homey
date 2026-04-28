@@ -1,0 +1,61 @@
+{
+  "id": "pcpacman",
+  "bundle": "game/pcpacman.jsdos",
+  "controls": {
+    "up": {
+      "key": "KBD_up",
+      "action": "Move up",
+      "mode": "hold"
+    },
+    "down": {
+      "key": "KBD_down",
+      "action": "Move down",
+      "mode": "hold"
+    },
+    "left": {
+      "key": "KBD_left",
+      "action": "Move left",
+      "mode": "hold"
+    },
+    "right": {
+      "key": "KBD_right",
+      "action": "Move right",
+      "mode": "hold"
+    },
+    "a": {
+      "key": "KBD_space",
+      "action": "Action / pause",
+      "mode": "hold"
+    },
+    "b": {
+      "key": "KBD_enter",
+      "action": "Start",
+      "mode": "tap"
+    },
+    "x": {
+      "key": "KBD_leftshift",
+      "action": "Modifier (sticky)",
+      "mode": "sticky"
+    },
+    "y": {
+      "key": "KBD_leftctrl",
+      "action": "Secondary action",
+      "mode": "hold"
+    },
+    "menu": {
+      "key": "KBD_esc",
+      "action": "Menu",
+      "mode": "tap"
+    },
+    "select": {
+      "key": "KBD_tab",
+      "action": "Status",
+      "mode": "tap"
+    },
+    "start": {
+      "key": "KBD_enter",
+      "action": "Confirm",
+      "mode": "tap"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "plbmpong",
+  "bundle": "game/plbmpong.jsdos",
+  "controls": {
+    "up": {
+      "key": "KBD_up",
+      "action": "Paddle up",
+      "mode": "hold"
+    },
+    "down": {
+      "key": "KBD_down",
+      "action": "Paddle down",
+      "mode": "hold"
+    },
+    "left": {
+      "key": "KBD_left",
+      "action": "Move left / menu",
+      "mode": "hold"
+    },
+    "right": {
+      "key": "KBD_right",
+      "action": "Move right / menu",
+      "mode": "hold"
+    },
+    "a": {
+      "key": "KBD_leftctrl",
+      "action": "Primary action",
+      "mode": "hold"
+    },
+    "b": {
+      "key": "KBD_enter",
+      "action": "Start / confirm",
+      "mode": "tap"
+    },
+    "x": {
+      "key": "KBD_leftshift",
+      "action": "Modifier (sticky)",
+      "mode": "sticky"
+    },
+    "y": {
+      "key": "KBD_space",
+      "action": "Secondary action",
+      "mode": "hold"
+    },
+    "menu": {
+      "key": "KBD_esc",
+      "action": "Menu",
+      "mode": "tap"
+    },
+    "select": {
+      "key": "KBD_tab",
+      "action": "Status",
+      "mode": "tap"
+    },
+    "start": {
+      "key": "KBD_enter",
+      "action": "Confirm",
+      "mode": "tap"
+    }
+  }
+}

@@ -1,0 +1,466 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.doekse.arcade",
+  "version": "0.0.1",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "brandColor": "#5A56D5",
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "HomeyArcade",
+    "nl": "HomeyArcade",
+    "de": "HomeyArcade",
+    "fr": "HomeyArcade",
+    "it": "HomeyArcade",
+    "sv": "HomeyArcade",
+    "no": "HomeyArcade",
+    "es": "HomeyArcade",
+    "da": "HomeyArcade",
+    "ru": "HomeyArcade",
+    "pl": "HomeyArcade",
+    "ko": "HomeyArcade",
+    "ar": "HomeyArcade"
+  },
+  "description": {
+    "en": "Play msDOS games on Homey Dashboards",
+    "nl": "Speel msDOS-games op Homey Dashboards",
+    "de": "Spiele msDOS-Spiele auf Homey-Dashboards",
+    "fr": "Jouez à des jeux msDOS sur les tableaux de bord Homey",
+    "it": "Gioca ai giochi msDOS nelle dashboard Homey",
+    "sv": "Spela msDOS-spel på Homey-instrumentpaneler",
+    "no": "Spill msDOS-spill på Homey-dashbord",
+    "es": "Juega a juegos msDOS en los paneles de Homey",
+    "da": "Spil msDOS-spil på Homey-dashboards",
+    "ru": "Играйте в игры msDOS на панелях Homey",
+    "pl": "Graj w gry msDOS na pulpitach Homey",
+    "ko": "Homey 대시보드에서 msDOS 게임을 즐기세요",
+    "ar": "العب ألعاب msDOS على لوحات معلومات Homey"
+  },
+  "category": [
+    "internet"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Abe Haverkamp",
+    "email": "abe.haverkamp@gmail.com"
+  },
+  "widgets": {
+    "homeyarcade": {
+      "id": "homeyarcade",
+      "name": {
+        "en": "HomeyArcade",
+        "nl": "HomeyArcade",
+        "de": "HomeyArcade",
+        "fr": "HomeyArcade",
+        "it": "HomeyArcade",
+        "sv": "HomeyArcade",
+        "no": "HomeyArcade",
+        "es": "HomeyArcade",
+        "da": "HomeyArcade",
+        "ru": "HomeyArcade",
+        "pl": "HomeyArcade",
+        "ko": "HomeyArcade",
+        "ar": "HomeyArcade"
+      },
+      "height": 780,
+      "transparent": false,
+      "settings": [
+        {
+          "id": "game",
+          "type": "dropdown",
+          "title": {
+            "en": "Game",
+            "nl": "Spel",
+            "de": "Spiel",
+            "fr": "Jeu",
+            "it": "Gioco",
+            "sv": "Spel",
+            "no": "Spill",
+            "es": "Juego",
+            "da": "Spil",
+            "ru": "Игра",
+            "pl": "Gra",
+            "ko": "게임",
+            "ar": "اللعبة"
+          },
+          "value": "doom",
+          "values": [
+            {
+              "id": "doom",
+              "label": {
+                "en": "DOOM",
+                "nl": "DOOM",
+                "de": "DOOM",
+                "fr": "DOOM",
+                "it": "DOOM",
+                "sv": "DOOM",
+                "no": "DOOM",
+                "es": "DOOM",
+                "da": "DOOM",
+                "ru": "DOOM",
+                "pl": "DOOM",
+                "ko": "DOOM",
+                "ar": "DOOM"
+              }
+            },
+            {
+              "id": "wolf3d",
+              "label": {
+                "en": "Wolfenstein 3D",
+                "nl": "Wolfenstein 3D",
+                "de": "Wolfenstein 3D",
+                "fr": "Wolfenstein 3D",
+                "it": "Wolfenstein 3D",
+                "sv": "Wolfenstein 3D",
+                "no": "Wolfenstein 3D",
+                "es": "Wolfenstein 3D",
+                "da": "Wolfenstein 3D",
+                "ru": "Wolfenstein 3D",
+                "pl": "Wolfenstein 3D",
+                "ko": "Wolfenstein 3D",
+                "ar": "Wolfenstein 3D"
+              }
+            },
+            {
+              "id": "duke3d",
+              "label": {
+                "en": "Duke Nukem 3D",
+                "nl": "Duke Nukem 3D",
+                "de": "Duke Nukem 3D",
+                "fr": "Duke Nukem 3D",
+                "it": "Duke Nukem 3D",
+                "sv": "Duke Nukem 3D",
+                "no": "Duke Nukem 3D",
+                "es": "Duke Nukem 3D",
+                "da": "Duke Nukem 3D",
+                "ru": "Duke Nukem 3D",
+                "pl": "Duke Nukem 3D",
+                "ko": "Duke Nukem 3D",
+                "ar": "Duke Nukem 3D"
+              }
+            },
+            {
+              "id": "heretic",
+              "label": {
+                "en": "Heretic",
+                "nl": "Heretic",
+                "de": "Heretic",
+                "fr": "Heretic",
+                "it": "Heretic",
+                "sv": "Heretic",
+                "no": "Heretic",
+                "es": "Heretic",
+                "da": "Heretic",
+                "ru": "Heretic",
+                "pl": "Heretic",
+                "ko": "Heretic",
+                "ar": "Heretic"
+              }
+            },
+            {
+              "id": "dukenukem2",
+              "label": {
+                "en": "Duke Nukem II",
+                "nl": "Duke Nukem II",
+                "de": "Duke Nukem II",
+                "fr": "Duke Nukem II",
+                "it": "Duke Nukem II",
+                "sv": "Duke Nukem II",
+                "no": "Duke Nukem II",
+                "es": "Duke Nukem II",
+                "da": "Duke Nukem II",
+                "ru": "Duke Nukem II",
+                "pl": "Duke Nukem II",
+                "ko": "Duke Nukem II",
+                "ar": "Duke Nukem II"
+              }
+            },
+            {
+              "id": "aliencarnage",
+              "label": {
+                "en": "Alien Carnage",
+                "nl": "Alien Carnage",
+                "de": "Alien Carnage",
+                "fr": "Alien Carnage",
+                "it": "Alien Carnage",
+                "sv": "Alien Carnage",
+                "no": "Alien Carnage",
+                "es": "Alien Carnage",
+                "da": "Alien Carnage",
+                "ru": "Alien Carnage",
+                "pl": "Alien Carnage",
+                "ko": "Alien Carnage",
+                "ar": "Alien Carnage"
+              }
+            },
+            {
+              "id": "cosmo",
+              "label": {
+                "en": "Cosmo's Cosmic Adventure",
+                "nl": "Cosmo's Cosmic Adventure",
+                "de": "Cosmo's Cosmic Adventure",
+                "fr": "Cosmo's Cosmic Adventure",
+                "it": "Cosmo's Cosmic Adventure",
+                "sv": "Cosmo's Cosmic Adventure",
+                "no": "Cosmo's Cosmic Adventure",
+                "es": "Cosmo's Cosmic Adventure",
+                "da": "Cosmo's Cosmic Adventure",
+                "ru": "Cosmo's Cosmic Adventure",
+                "pl": "Cosmo's Cosmic Adventure",
+                "ko": "Cosmo's Cosmic Adventure",
+                "ar": "Cosmo's Cosmic Adventure"
+              }
+            },
+            {
+              "id": "keen4",
+              "label": {
+                "en": "Commander Keen 4",
+                "nl": "Commander Keen 4",
+                "de": "Commander Keen 4",
+                "fr": "Commander Keen 4",
+                "it": "Commander Keen 4",
+                "sv": "Commander Keen 4",
+                "no": "Commander Keen 4",
+                "es": "Commander Keen 4",
+                "da": "Commander Keen 4",
+                "ru": "Commander Keen 4",
+                "pl": "Commander Keen 4",
+                "ko": "Commander Keen 4",
+                "ar": "Commander Keen 4"
+              }
+            },
+            {
+              "id": "pcpacman",
+              "label": {
+                "en": "PCPacman",
+                "nl": "PCPacman",
+                "de": "PCPacman",
+                "fr": "PCPacman",
+                "it": "PCPacman",
+                "sv": "PCPacman",
+                "no": "PCPacman",
+                "es": "PCPacman",
+                "da": "PCPacman",
+                "ru": "PCPacman",
+                "pl": "PCPacman",
+                "ko": "PCPacman",
+                "ar": "PCPacman"
+              }
+            },
+            {
+              "id": "monsterbash",
+              "label": {
+                "en": "Monster Bash",
+                "nl": "Monster Bash",
+                "de": "Monster Bash",
+                "fr": "Monster Bash",
+                "it": "Monster Bash",
+                "sv": "Monster Bash",
+                "no": "Monster Bash",
+                "es": "Monster Bash",
+                "da": "Monster Bash",
+                "ru": "Monster Bash",
+                "pl": "Monster Bash",
+                "ko": "Monster Bash",
+                "ar": "Monster Bash"
+              }
+            },
+            {
+              "id": "plbmpong",
+              "label": {
+                "en": "PLBM Pong-Out",
+                "nl": "PLBM Pong-Out",
+                "de": "PLBM Pong-Out",
+                "fr": "PLBM Pong-Out",
+                "it": "PLBM Pong-Out",
+                "sv": "PLBM Pong-Out",
+                "no": "PLBM Pong-Out",
+                "es": "PLBM Pong-Out",
+                "da": "PLBM Pong-Out",
+                "ru": "PLBM Pong-Out",
+                "pl": "PLBM Pong-Out",
+                "ko": "PLBM Pong-Out",
+                "ar": "PLBM Pong-Out"
+              }
+            }
+          ]
+        },
+        {
+          "id": "console",
+          "type": "dropdown",
+          "title": {
+            "en": "Console",
+            "nl": "Console",
+            "de": "Konsole",
+            "fr": "Console",
+            "it": "Console",
+            "sv": "Konsol",
+            "no": "Konsoll",
+            "es": "Consola",
+            "da": "Konsol",
+            "ru": "Консоль",
+            "pl": "Konsola",
+            "ko": "콘솔",
+            "ar": "وحدة التحكم"
+          },
+          "value": "arcadeboy",
+          "values": [
+            {
+              "id": "arcadeboy",
+              "label": {
+                "en": "Arcade Boy",
+                "nl": "Arcade Boy",
+                "de": "Arcade Boy",
+                "fr": "Arcade Boy",
+                "it": "Arcade Boy",
+                "sv": "Arcade Boy",
+                "no": "Arcade Boy",
+                "es": "Arcade Boy",
+                "da": "Arcade Boy",
+                "ru": "Arcade Boy",
+                "pl": "Arcade Boy",
+                "ko": "Arcade Boy",
+                "ar": "Arcade Boy"
+              }
+            },
+            {
+              "id": "arcadeboy_color_blue",
+              "label": {
+                "en": "Arcade Boy Color — Blue",
+                "nl": "Arcade Boy Color — Blauw",
+                "de": "Arcade Boy Color — Blau",
+                "fr": "Arcade Boy Color — Bleu",
+                "it": "Arcade Boy Color — Blu",
+                "sv": "Arcade Boy Color — Blå",
+                "no": "Arcade Boy Color — Blå",
+                "es": "Arcade Boy Color — Azul",
+                "da": "Arcade Boy Color — Blå",
+                "ru": "Arcade Boy Color — Синий",
+                "pl": "Arcade Boy Color — Niebieski",
+                "ko": "Arcade Boy Color — Blue",
+                "ar": "Arcade Boy Color — أزرق"
+              }
+            },
+            {
+              "id": "arcadeboy_color_green",
+              "label": {
+                "en": "Arcade Boy Color — Green",
+                "nl": "Arcade Boy Color — Groen",
+                "de": "Arcade Boy Color — Grün",
+                "fr": "Arcade Boy Color — Vert",
+                "it": "Arcade Boy Color — Verde",
+                "sv": "Arcade Boy Color — Grön",
+                "no": "Arcade Boy Color — Grønn",
+                "es": "Arcade Boy Color — Verde",
+                "da": "Arcade Boy Color — Grøn",
+                "ru": "Arcade Boy Color — Зеленый",
+                "pl": "Arcade Boy Color — Zielony",
+                "ko": "Arcade Boy Color — Green",
+                "ar": "Arcade Boy Color — أخضر"
+              }
+            },
+            {
+              "id": "arcadeboy_color_purple",
+              "label": {
+                "en": "Arcade Boy Color — Purple",
+                "nl": "Arcade Boy Color — Paars",
+                "de": "Arcade Boy Color — Lila",
+                "fr": "Arcade Boy Color — Violet",
+                "it": "Arcade Boy Color — Viola",
+                "sv": "Arcade Boy Color — Lila",
+                "no": "Arcade Boy Color — Lilla",
+                "es": "Arcade Boy Color — Morado",
+                "da": "Arcade Boy Color — Lilla",
+                "ru": "Arcade Boy Color — Фиолетовый",
+                "pl": "Arcade Boy Color — Fioletowy",
+                "ko": "Arcade Boy Color — Purple",
+                "ar": "Arcade Boy Color — بنفسجي"
+              }
+            },
+            {
+              "id": "arcadeboy_color_translucent",
+              "label": {
+                "en": "Arcade Boy Color — Translucent",
+                "nl": "Arcade Boy Color — Transparant",
+                "de": "Arcade Boy Color — Transparent",
+                "fr": "Arcade Boy Color — Transparent",
+                "it": "Arcade Boy Color — Traslucido",
+                "sv": "Arcade Boy Color — Genomskinlig",
+                "no": "Arcade Boy Color — Gjennomsiktig",
+                "es": "Arcade Boy Color — Transparente",
+                "da": "Arcade Boy Color — Gennemsigtig",
+                "ru": "Arcade Boy Color — Полупрозрачный",
+                "pl": "Arcade Boy Color — Przezroczysty",
+                "ko": "Arcade Boy Color — Translucent",
+                "ar": "Arcade Boy Color — شفاف"
+              }
+            },
+            {
+              "id": "arcadeboy_color_yellow",
+              "label": {
+                "en": "Arcade Boy Color — Yellow",
+                "nl": "Arcade Boy Color — Geel",
+                "de": "Arcade Boy Color — Gelb",
+                "fr": "Arcade Boy Color — Jaune",
+                "it": "Arcade Boy Color — Giallo",
+                "sv": "Arcade Boy Color — Gul",
+                "no": "Arcade Boy Color — Gul",
+                "es": "Arcade Boy Color — Amarillo",
+                "da": "Arcade Boy Color — Gul",
+                "ru": "Arcade Boy Color — Желтый",
+                "pl": "Arcade Boy Color — Żółty",
+                "ko": "Arcade Boy Color — Yellow",
+                "ar": "Arcade Boy Color — أصفر"
+              }
+            },
+            {
+              "id": "super_arcadeboy",
+              "label": {
+                "en": "Super Arcade Boy",
+                "nl": "Super Arcade Boy",
+                "de": "Super Arcade Boy",
+                "fr": "Super Arcade Boy",
+                "it": "Super Arcade Boy",
+                "sv": "Super Arcade Boy",
+                "no": "Super Arcade Boy",
+                "es": "Super Arcade Boy",
+                "da": "Super Arcade Boy",
+                "ru": "Super Arcade Boy",
+                "pl": "Super Arcade Boy",
+                "ko": "Super Arcade Boy",
+                "ar": "Super Arcade Boy"
+              }
+            },
+            {
+              "id": "arcadestation",
+              "label": {
+                "en": "ArcadeStation",
+                "nl": "ArcadeStation",
+                "de": "ArcadeStation",
+                "fr": "ArcadeStation",
+                "it": "ArcadeStation",
+                "sv": "ArcadeStation",
+                "no": "ArcadeStation",
+                "es": "ArcadeStation",
+                "da": "ArcadeStation",
+                "ru": "ArcadeStation",
+                "pl": "ArcadeStation",
+                "ko": "ArcadeStation",
+                "ar": "ArcadeStation"
+              }
+            }
+          ]
+        }
+      ],
+      "api": {}
+    }
+  }
+}

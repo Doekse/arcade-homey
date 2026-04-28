@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "target": "ES2020"
+  },
+  "include": [
+    "app.js",
+    "scripts/**/*.js",
+    "widgets/**/api.js",
+    "widgets/**/public/*.js",
+    "lib/**/*.js"
+  ]
+}

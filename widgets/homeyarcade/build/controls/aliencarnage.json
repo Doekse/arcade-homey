@@ -1,0 +1,61 @@
+{
+  "id": "aliencarnage",
+  "bundle": "game/aliencarnage.jsdos",
+  "controls": {
+    "up": {
+      "key": "KBD_up",
+      "action": "Move up",
+      "mode": "hold"
+    },
+    "down": {
+      "key": "KBD_down",
+      "action": "Move down",
+      "mode": "hold"
+    },
+    "left": {
+      "key": "KBD_left",
+      "action": "Move left",
+      "mode": "hold"
+    },
+    "right": {
+      "key": "KBD_right",
+      "action": "Move right",
+      "mode": "hold"
+    },
+    "a": {
+      "key": "KBD_leftalt",
+      "action": "Fire",
+      "mode": "hold"
+    },
+    "b": {
+      "key": "KBD_leftctrl",
+      "action": "Jetpack",
+      "mode": "hold"
+    },
+    "x": {
+      "key": "KBD_leftshift",
+      "action": "Run (sticky)",
+      "mode": "sticky"
+    },
+    "y": {
+      "key": "KBD_space",
+      "action": "Swap weapons",
+      "mode": "hold"
+    },
+    "menu": {
+      "key": "KBD_esc",
+      "action": "Menu",
+      "mode": "tap"
+    },
+    "select": {
+      "key": "KBD_tab",
+      "action": "Status",
+      "mode": "tap"
+    },
+    "start": {
+      "key": "KBD_enter",
+      "action": "Confirm",
+      "mode": "tap"
+    }
+  }
+}

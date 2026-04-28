@@ -1,0 +1,61 @@
+{
+  "id": "heretic",
+  "bundle": "game/heretic.jsdos",
+  "controls": {
+    "up": {
+      "key": "KBD_up",
+      "action": "Move forward",
+      "mode": "hold"
+    },
+    "down": {
+      "key": "KBD_down",
+      "action": "Move backward",
+      "mode": "hold"
+    },
+    "left": {
+      "key": "KBD_left",
+      "action": "Turn left",
+      "mode": "hold"
+    },
+    "right": {
+      "key": "KBD_right",
+      "action": "Turn right",
+      "mode": "hold"
+    },
+    "a": {
+      "key": "KBD_leftctrl",
+      "action": "Attack",
+      "mode": "hold"
+    },
+    "b": {
+      "key": "KBD_space",
+      "action": "Use / Open",
+      "mode": "hold"
+    },
+    "x": {
+      "key": "KBD_leftshift",
+      "action": "Run (sticky)",
+      "mode": "sticky"
+    },
+    "y": {
+      "key": "KBD_leftalt",
+      "action": "Strafe",
+      "mode": "hold"
+    },
+    "menu": {
+      "key": "KBD_esc",
+      "action": "Menu",
+      "mode": "tap"
+    },
+    "select": {
+      "key": "KBD_tab",
+      "action": "Automap",
+      "mode": "tap"
+    },
+    "start": {
+      "key": "KBD_enter",
+      "action": "Confirm",
+      "mode": "tap"
+    }
+  }
+}

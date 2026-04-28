@@ -1,0 +1,54 @@
+{
+  "id": "com.doekse.arcade",
+  "version": "0.0.1",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "brandColor": "#5A56D5",
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "HomeyArcade",
+    "nl": "HomeyArcade",
+    "de": "HomeyArcade",
+    "fr": "HomeyArcade",
+    "it": "HomeyArcade",
+    "sv": "HomeyArcade",
+    "no": "HomeyArcade",
+    "es": "HomeyArcade",
+    "da": "HomeyArcade",
+    "ru": "HomeyArcade",
+    "pl": "HomeyArcade",
+    "ko": "HomeyArcade",
+    "ar": "HomeyArcade"
+  },
+  "description": {
+    "en": "Play msDOS games on Homey Dashboards",
+    "nl": "Speel msDOS-games op Homey Dashboards",
+    "de": "Spiele msDOS-Spiele auf Homey-Dashboards",
+    "fr": "Jouez à des jeux msDOS sur les tableaux de bord Homey",
+    "it": "Gioca ai giochi msDOS nelle dashboard Homey",
+    "sv": "Spela msDOS-spel på Homey-instrumentpaneler",
+    "no": "Spill msDOS-spill på Homey-dashbord",
+    "es": "Juega a juegos msDOS en los paneles de Homey",
+    "da": "Spil msDOS-spil på Homey-dashboards",
+    "ru": "Играйте в игры msDOS на панелях Homey",
+    "pl": "Graj w gry msDOS na pulpitach Homey",
+    "ko": "Homey 대시보드에서 msDOS 게임을 즐기세요",
+    "ar": "العب ألعاب msDOS على لوحات معلومات Homey"
+  },
+  "category": [
+    "internet"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Abe Haverkamp",
+    "email": "abe.haverkamp@gmail.com"
+  }
+}

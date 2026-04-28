@@ -1,0 +1,12 @@
+{
+  "extends": "athom/homey-app",
+  "ignorePatterns": ["widgets/**/public/vendor/**"],
+  "overrides": [
+    {
+      "files": ["lib/**/*.js"],
+      "rules": {
+        "import/prefer-default-export": "off"
+      }
+    }
+  ]
+}

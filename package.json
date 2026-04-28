@@ -1,0 +1,27 @@
+{
+  "name": "com.doekse.arcade",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "build:controls": "node scripts/build-controls.js",
+    "build:doom-jsdos": "node scripts/build-doom-jsdos.js",
+    "build:wolf3d-jsdos": "node scripts/build-wolf3d-jsdos.js",
+    "build:duke3d-jsdos": "node scripts/build-duke3d-jsdos.js",
+    "build:heretic-jsdos": "node scripts/build-heretic-jsdos.js",
+    "build:dukenukem2-jsdos": "node scripts/build-dukenukem2-jsdos.js",
+    "build:aliencarnage-jsdos": "node scripts/build-aliencarnage-jsdos.js",
+    "build:cosmo-jsdos": "node scripts/build-cosmo-jsdos.js",
+    "build:keen4-jsdos": "node scripts/build-keen4-jsdos.js",
+    "build:pcpacman-jsdos": "node scripts/build-pcpacman-jsdos.js",
+    "build:monsterbash-jsdos": "node scripts/build-monsterbash-jsdos.js",
+    "build:plbmpong-jsdos": "node scripts/build-plbmpong-jsdos.js",
+    "build:game-bundles": "npm run build:doom-jsdos && npm run build:wolf3d-jsdos && npm run build:duke3d-jsdos && npm run build:heretic-jsdos && npm run build:dukenukem2-jsdos && npm run build:aliencarnage-jsdos && npm run build:cosmo-jsdos && npm run build:keen4-jsdos && npm run build:pcpacman-jsdos && npm run build:monsterbash-jsdos && npm run build:plbmpong-jsdos"
+  },
+  "devDependencies": {
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12",
+    "7zip-bin": "^5.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-athom": "^3.1.5"
+  }
+}

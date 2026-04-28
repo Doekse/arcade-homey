@@ -1,0 +1,69 @@
+{
+  "id": "monsterbash",
+  "bundle": "game/monsterbash.jsdos",
+  "controls": {
+    "up": {
+      "key": "KBD_up",
+      "action": "Aim upward",
+      "mode": "tap-or-hold",
+      "tapKey": "KBD_up",
+      "tapHoldMs": 140
+    },
+    "down": {
+      "key": "KBD_down",
+      "action": "Crouch",
+      "mode": "tap-or-hold",
+      "tapKey": "KBD_down",
+      "tapHoldMs": 140
+    },
+    "left": {
+      "key": "KBD_left",
+      "action": "Move left",
+      "mode": "tap-or-hold",
+      "tapKey": "KBD_left",
+      "tapHoldMs": 140
+    },
+    "right": {
+      "key": "KBD_right",
+      "action": "Move right",
+      "mode": "tap-or-hold",
+      "tapKey": "KBD_right",
+      "tapHoldMs": 140
+    },
+    "a": {
+      "key": "KBD_leftalt",
+      "action": "Fire slingshot",
+      "mode": "hold"
+    },
+    "b": {
+      "key": "KBD_leftctrl",
+      "action": "Jump",
+      "mode": "hold"
+    },
+    "x": {
+      "key": "KBD_leftshift",
+      "action": "Modifier (sticky)",
+      "mode": "sticky"
+    },
+    "y": {
+      "key": "KBD_space",
+      "action": "Status",
+      "mode": "tap"
+    },
+    "menu": {
+      "key": "KBD_esc",
+      "action": "Menu",
+      "mode": "tap"
+    },
+    "select": {
+      "key": "KBD_tab",
+      "action": "Status",
+      "mode": "tap"
+    },
+    "start": {
+      "key": "KBD_enter",
+      "action": "Confirm",
+      "mode": "tap"
+    }
+  }
+}

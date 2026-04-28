@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Wireframe template for widgets/homeyarcade/public/art/cabinet.png.
+  Canvas: 1080 x 1440 (3:4 portrait). Every rectangle here is an interactive
+  region in the widget; paint button art so it sits inside each rectangle with
+  ~20 px of safe margin on every side so taps slightly off the paint still
+  register. The blue rectangle must end up fully transparent in cabinet.png.
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1080 1440"
+     width="1080" height="1440"
+     font-family="'SF Mono', Menlo, Consolas, monospace">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .canvas-bg { fill: #f7f5f1; stroke: #111; stroke-width: 3; }
+      .zone-fill { opacity: 0.55; }
+      .zone-marquee { fill: #fde7d1; }
+      .zone-bezel   { fill: #f5eadb; }
+      .zone-topctrl { fill: #f0e0c6; }
+      .zone-deck    { fill: #f5eadb; }
+      .zone-skirt   { fill: #ede1cb; }
+      .zone-divider { stroke: #7a6a55; stroke-width: 2; stroke-dasharray: 10 6; fill: none; }
+      .zone-label { font-size: 20px; font-weight: 700; fill: #5a4a36; letter-spacing: 1px; }
+      .screen-box { fill: rgba(0, 140, 210, 0.12); stroke: #008cd2; stroke-width: 5; stroke-dasharray: 14 8; }
+      .screen-label { fill: #006b9e; font-weight: 700; text-anchor: middle; }
+      .hit-hold    { fill: rgba(255, 170, 0, 0.18);  stroke: #e69500; stroke-width: 3; }
+      .hit-sticky  { fill: rgba(255, 90, 0, 0.20);   stroke: #c84400; stroke-width: 3; }
+      .hit-tap     { fill: rgba(0, 160, 70, 0.18);   stroke: #009a46; stroke-width: 3; }
+      .safe-area   { fill: none; stroke: #111; stroke-width: 1.5; stroke-dasharray: 4 5; opacity: 0.45; }
+      .btn-label { text-anchor: middle; font-weight: 800; fill: #222; }
+      .btn-meta  { text-anchor: middle; font-weight: 600; fill: #444; font-size: 13px; }
+      .corner-tick { stroke: #111; stroke-width: 2; }
+      .dim-label { font-size: 13px; font-weight: 600; fill: #333; }
+      .legend-box { fill: #ffffff; stroke: #111; stroke-width: 1.5; }
+      .legend-title { font-size: 14px; font-weight: 800; fill: #111; letter-spacing: 1.5px; }
+      .legend-text { font-size: 13px; fill: #222; dominant-baseline: central; }
+      .origin-mark { font-size: 12px; fill: #555; }
+    ]]></style>
+  </defs>
+
+  <!-- canvas backdrop so the wireframe is legible on any editor background -->
+  <rect class="canvas-bg" x="0" y="0" width="1080" height="1440"/>
+
+  <!-- zone fills (ordered top-to-bottom) -->
+  <rect class="zone-fill zone-marquee" x="0" y="0"    width="1080" height="80"/>
+  <rect class="zone-fill zone-bezel"   x="0" y="80"  width="1080" height="712"/>
+  <rect class="zone-fill zone-topctrl" x="0" y="792"  width="1080" height="58"/>
+  <rect class="zone-fill zone-deck"    x="0" y="850"  width="1080" height="420"/>
+  <rect class="zone-fill zone-skirt"   x="0" y="1270" width="1080" height="170"/>
+
+  <!-- zone dividers -->
+  <line class="zone-divider" x1="0" y1="80"  x2="1080" y2="80"/>
+  <line class="zone-divider" x1="0" y1="792"  x2="1080" y2="792"/>
+  <line class="zone-divider" x1="0" y1="850"  x2="1080" y2="850"/>
+  <line class="zone-divider" x1="0" y1="1270" x2="1080" y2="1270"/>
+
+  <!-- zone labels (right edge so they don't collide with art/buttons) -->
+  <text class="zone-label" x="1060" y="26"   text-anchor="end">y 0-80     | MARQUEE (80 px)</text>
+  <text class="zone-label" x="1060" y="106"  text-anchor="end">y 80-792   | SCREEN BEZEL (712 px)</text>
+  <text class="zone-label" x="1060" y="818"  text-anchor="end">y 792-850  | MENU PANEL (58 px)</text>
+  <text class="zone-label" x="1060" y="876"  text-anchor="end">y 850-1270 | CONTROL DECK (420 px)</text>
+  <text class="zone-label" x="1060" y="1296" text-anchor="end">y 1270-1440 | SKIRT (170 px)</text>
+
+  <!-- screen cutout (MUST be fully transparent in final cabinet.png) -->
+  <g>
+    <rect class="screen-box" x="65" y="80" width="950" height="712"/>
+    <text class="screen-label" x="540" y="420" font-size="34">SCREEN CUTOUT</text>
+    <text class="screen-label" x="540" y="454" font-size="22">alpha = 0 // no painted content</text>
+    <text class="screen-label" x="540" y="482" font-size="18">(65, 80) to (1015, 792)  |  950 x 712  |  4:3</text>
+  </g>
+
+  <!-- corner tick marks around the screen cutout for alignment -->
+  <g class="corner-tick">
+    <line x1="45"  y1="80" x2="85"   y2="80"/>
+    <line x1="65"  y1="60" x2="65"   y2="100"/>
+    <line x1="995" y1="80" x2="1035" y2="80"/>
+    <line x1="1015" y1="60" x2="1015" y2="100"/>
+    <line x1="45"  y1="792" x2="85"   y2="792"/>
+    <line x1="65"  y1="772" x2="65"   y2="812"/>
+    <line x1="995" y1="792" x2="1035" y2="792"/>
+    <line x1="1015" y1="772" x2="1015" y2="812"/>
+  </g>
+
+  <!-- D-pad hit rectangles (hold mode): left column x=65 aligns with screen cutout -->
+  <g>
+    <rect class="hit-hold" x="205" y="850" width="140" height="140"/>
+    <rect class="safe-area" x="225" y="870" width="100" height="100"/>
+    <text class="btn-label" x="275" y="915" font-size="26">UP</text>
+    <text class="btn-meta"  x="275" y="940">hold | KBD_up | 265</text>
+    <text class="btn-meta"  x="275" y="960">rect 205,850 140x140</text>
+
+    <rect class="hit-hold" x="65" y="990" width="140" height="140"/>
+    <rect class="safe-area" x="85" y="1010" width="100" height="100"/>
+    <text class="btn-label" x="135" y="1055" font-size="26">LEFT</text>
+    <text class="btn-meta"  x="135" y="1080">hold | KBD_left | 263</text>
+    <text class="btn-meta"  x="135" y="1100">rect 65,990 140x140</text>
+
+    <rect class="hit-hold" x="345" y="990" width="140" height="140"/>
+    <rect class="safe-area" x="365" y="1010" width="100" height="100"/>
+    <text class="btn-label" x="415" y="1055" font-size="26">RIGHT</text>
+    <text class="btn-meta"  x="415" y="1080">hold | KBD_right | 262</text>
+    <text class="btn-meta"  x="415" y="1100">rect 345,990 140x140</text>
+
+    <rect class="hit-hold" x="205" y="1130" width="140" height="140"/>
+    <rect class="safe-area" x="225" y="1150" width="100" height="100"/>
+    <text class="btn-label" x="275" y="1195" font-size="26">DOWN</text>
+    <text class="btn-meta"  x="275" y="1220">hold | KBD_down | 264</text>
+    <text class="btn-meta"  x="275" y="1240">rect 205,1130 140x140</text>
+  </g>
+
+  <!-- Face buttons: 40 px row gap matches 40 px column gap (Y inner edge to X inner edge) -->
+  <g>
+    <rect class="hit-hold" x="690" y="900" width="140" height="140"/>
+    <rect class="safe-area" x="710" y="920" width="100" height="100"/>
+    <text class="btn-label" x="760" y="965" font-size="28">Y</text>
+    <text class="btn-meta"  x="760" y="990">STRAFE | hold | alt | 342</text>
+    <text class="btn-meta"  x="760" y="1010">yellow / molten gold</text>
+    <text class="btn-meta"  x="760" y="1030">rect 690,900 140x140</text>
+
+    <rect class="hit-sticky" x="870" y="900" width="140" height="140"/>
+    <rect class="safe-area" x="890" y="920" width="100" height="100"/>
+    <text class="btn-label" x="940" y="965" font-size="28">X</text>
+    <text class="btn-meta"  x="940" y="990">RUN | sticky | shift | 340</text>
+    <text class="btn-meta"  x="940" y="1010">red / blood metal</text>
+    <text class="btn-meta"  x="940" y="1030">rect 870,900 140x140</text>
+
+    <rect class="hit-hold" x="690" y="1080" width="140" height="140"/>
+    <rect class="safe-area" x="710" y="1100" width="100" height="100"/>
+    <text class="btn-label" x="760" y="1145" font-size="28">B</text>
+    <text class="btn-meta"  x="760" y="1170">USE | hold | space | 32</text>
+    <text class="btn-meta"  x="760" y="1190">red / blood metal</text>
+    <text class="btn-meta"  x="760" y="1210">rect 690,1080 140x140</text>
+
+    <rect class="hit-hold" x="870" y="1080" width="140" height="140"/>
+    <rect class="safe-area" x="890" y="1100" width="100" height="100"/>
+    <text class="btn-label" x="940" y="1145" font-size="28">A</text>
+    <text class="btn-meta"  x="940" y="1170">FIRE | hold | ctrl | 341</text>
+    <text class="btn-meta"  x="940" y="1190">yellow / molten gold</text>
+    <text class="btn-meta"  x="940" y="1210">rect 870,1080 140x140</text>
+  </g>
+
+  <!-- MENU pill (top edge aligned with d-pad top at y=850) -->
+  <g>
+    <rect class="hit-tap" x="440" y="850" width="200" height="60" rx="10" ry="10"/>
+    <rect class="safe-area" x="460" y="866" width="160" height="28" rx="14" ry="14"/>
+    <text class="btn-label" x="540" y="875" font-size="18">MENU</text>
+    <text class="btn-meta"  x="540" y="898">tap | KBD_esc | 256 | rect 440,850 200x60</text>
+  </g>
+
+  <!-- SELECT / START on the skirt: same width as MENU (200), 40 px gap -->
+  <g>
+    <rect class="hit-tap" x="320" y="1300" width="200" height="60" rx="8" ry="8"/>
+    <rect class="safe-area" x="340" y="1316" width="160" height="28" rx="10" ry="10"/>
+    <text class="btn-label" x="420" y="1325" font-size="16">SELECT</text>
+    <text class="btn-meta"  x="420" y="1353">tap | KBD_tab | 258 | rect 320,1300 200x60</text>
+
+    <rect class="hit-tap" x="560" y="1300" width="200" height="60" rx="8" ry="8"/>
+    <rect class="safe-area" x="580" y="1316" width="160" height="28" rx="10" ry="10"/>
+    <text class="btn-label" x="660" y="1325" font-size="16">START</text>
+    <text class="btn-meta"  x="660" y="1353">tap | KBD_enter | 257 | rect 560,1300 200x60</text>
+  </g>
+
+  <!-- legend in the marquee zone (top-left of canvas) -->
+  <g transform="translate(20, 18)">
+    <rect class="legend-box" x="0" y="0" width="420" height="200" rx="6" ry="6"/>
+    <text class="legend-title" x="14" y="24">LEGEND | REFERENCE CANVAS 1080 x 1440 | 3:4</text>
+    <g transform="translate(14, 44)">
+      <rect class="screen-box" x="0" y="0" width="32" height="18"/>
+      <text class="legend-text" x="46" y="10">screen cutout - leave transparent</text>
+    </g>
+    <g transform="translate(14, 72)">
+      <rect class="hit-hold" x="0" y="0" width="32" height="18"/>
+      <text class="legend-text" x="46" y="10">hit | hold - key down while pressed</text>
+    </g>
+    <g transform="translate(14, 100)">
+      <rect class="hit-sticky" x="0" y="0" width="32" height="18"/>
+      <text class="legend-text" x="46" y="10">hit | sticky - tap to latch on/off</text>
+    </g>
+    <g transform="translate(14, 128)">
+      <rect class="hit-tap" x="0" y="0" width="32" height="18"/>
+      <text class="legend-text" x="46" y="10">hit | tap - single key press</text>
+    </g>
+    <g transform="translate(14, 156)">
+      <rect class="safe-area" x="0" y="0" width="32" height="18"/>
+      <text class="legend-text" x="46" y="10">safe area - keep painted art inside</text>
+    </g>
+    <g transform="translate(14, 184)">
+      <line class="zone-divider" x1="0" y1="9" x2="32" y2="9"/>
+      <text class="legend-text" x="46" y="10">zone divider</text>
+    </g>
+  </g>
+
+  <!-- origin and corner callouts for quick sanity-check in editors -->
+  <g>
+    <text class="origin-mark" x="6"   y="14"   text-anchor="start">(0, 0)</text>
+    <text class="origin-mark" x="1074" y="14"  text-anchor="end">(1080, 0)</text>
+    <text class="origin-mark" x="6"   y="1434" text-anchor="start">(0, 1440)</text>
+    <text class="origin-mark" x="1074" y="1434" text-anchor="end">(1080, 1440)</text>
+  </g>
+</svg>
