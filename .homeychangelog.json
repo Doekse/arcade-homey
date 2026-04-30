@@ -4,5 +4,8 @@
   },
   "0.0.2": {
     "en": "Added forum topic ID"
+  },
+  "1.0.0": {
+    "en": "Initial stable release"
   }
 }
